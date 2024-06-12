@@ -158,18 +158,25 @@ class Cal implements ActionListener {
             tf.setText("");
             tf.setText(tf.getText() + b18.getLabel());
         } else if (o.equals(b19/*3*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b19.getLabel());
         } else if (o.equals(b13/*4*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b13.getLabel());
         } else if (o.equals(b14/*5*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b14.getLabel());
         } else if (o.equals(b15/*6*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b15.getLabel());
         } else if (o.equals(b9/*7*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b9.getLabel());
         } else if (o.equals(b10/*8*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b10.getLabel());
         } else if (o.equals(b11/*9*/)) {
+            tf.setText("");
             tf.setText(tf.getText() + b11.getLabel());
 
         } else if (o.equals(b20/* + */)) {
@@ -291,8 +298,8 @@ class Cal implements ActionListener {
         } else {
             sv = tf.getText();
             sdv = Double.parseDouble(sv);
-            if(op != null){
-            mathOps();
+            if (op != null) {
+                mathOps();
             }
             System.out.println("B");
         }
