@@ -183,13 +183,15 @@ class Cal implements ActionListener {
             op = "+";
             getNum();
         } else if (o.equals(b16/* - */)) {
-            op = "-";
+            if (op == null) {
+                op = "-";
+            }
             getNum();
         } else if (o.equals(b8/* / */)) {
-           op = "/";
+            op = "/";
             getNum();
         } else if (o.equals(b12/* * */)) {
-           op = "*";
+            op = "*";
             getNum();
         } else if (o.equals(b1 /* % */)) {
             op = "%";
@@ -274,12 +276,14 @@ class Cal implements ActionListener {
 
         tf.setText(total.toString());
         sf.setText(fv + op + sv + "=");
-        //fdv = null;
+        fdv = null;
         sv = null;
+        op = null;
     }
 
     void getNum() {
-        if (fv == null) {
+        System.out.println(op);
+        if (fdv == null) {
             fv = tf.getText();
             fdv = Double.parseDouble(fv);
             System.out.println(fdv);
