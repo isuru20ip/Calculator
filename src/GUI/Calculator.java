@@ -183,29 +183,17 @@ class Cal implements ActionListener {
             op = "+";
             getNum();
         } else if (o.equals(b16/* - */)) {
-            fv = tf.getText();
-            op = b16.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
-
+            op = "-";
+            getNum();
         } else if (o.equals(b8/* / */)) {
-            fv = tf.getText();
-            op = "/";
-            tf.setText("");
-            sf.setText(fv + b8.getLabel());
-
+           op = "/";
+            getNum();
         } else if (o.equals(b12/* * */)) {
-            fv = tf.getText();
-            op = b12.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
-
+           op = "*";
+            getNum();
         } else if (o.equals(b1 /* % */)) {
-            fv = tf.getText();
-            op = b1.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
-
+            op = "%";
+            getNum();
         } else if (o.equals(b5 /* x² */)) {
             fv = tf.getText();
             op = "M";
