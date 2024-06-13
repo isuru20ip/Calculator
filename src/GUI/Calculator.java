@@ -170,58 +170,96 @@ class Cal implements ActionListener {
             tf.setText(tf.getText() + b11.getLabel());
 
         } else if (o.equals(b20/* + */)) {
-            fv = tf.getText();
-            op = b20.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = b20.getLabel();
+                tf.setText("");
+                sf.setText(fv + op);
+            } else {
+                tf.setText("0");
+            }
+
         } else if (o.equals(b16/* - */)) {
-            fv = tf.getText();
-            op = b16.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = b16.getLabel();
+                tf.setText("");
+                sf.setText(fv + op);
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b8/* / */)) {
-            fv = tf.getText();
-            op = "/";
-            tf.setText("");
-            sf.setText(fv + b8.getLabel());
+
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = "/";
+                tf.setText("");
+                sf.setText(fv + b8.getLabel());
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b12/* * */)) {
-            fv = tf.getText();
-            op = b12.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
+
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = b12.getLabel();
+                tf.setText("");
+                sf.setText(fv + op);
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b1 /* % */)) {
-            fv = tf.getText();
-            op = b1.getLabel();
-            tf.setText("");
-            sf.setText(fv + op);
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = b1.getLabel();
+                tf.setText("");
+                sf.setText(fv + op);
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b5 /* x² */)) {
-            fv = tf.getText();
-            op = "M";
-            mathOps();
-            sf.setText(fv + "^" + "2" + "=");
+
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = "M";
+                mathOps();
+                sf.setText(fv + "^" + "2" + "=");
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b6 /* √x */)) {
-            fv = tf.getText();
-            op = "V";
-            mathOps();
-            sf.setText("√" + fv + "=");
+
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = "V";
+                mathOps();
+                sf.setText("√" + fv + "=");
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b7 /* 1÷x */)) {
-            fv = tf.getText();
-            op = "X";
-            mathOps();
-            sf.setText("1" + "/(" + fv + ")=");
+
+            if (!"".equals(tf.getText())) {
+                fv = tf.getText();
+                op = "X";
+                mathOps();
+                sf.setText("1" + "/(" + fv + ")=");
+            } else {
+                tf.setText("0");
+            }
 
         } else if (o.equals(b21 /* +/- */)) {
             if (!"".equals(tf.getText())) {
-                fv = tf.getText();
-                fv = tf.getText();
-                tf.setText("-" + fv);
-                sf.setText("-" + fv);
+                //fv = tf.getText();
+                // fv = tf.getText();
+                tf.setText("-" + tf.getText());
+                //sf.setText("-" + fv);
             } else {
                 tf.setText("0");
             }
@@ -233,7 +271,7 @@ class Cal implements ActionListener {
             tf.setText("0");
             sf.setText("");
 
-        } else if (o.equals(b2)) {
+        } else if (o.equals(b2 /*CE*/)) {
             tf.setText("0");
         } else if (o.equals(b23/* . */)) {
 
@@ -251,40 +289,49 @@ class Cal implements ActionListener {
                 tf.setText(tf.getText().substring(0, size - 1));
             }
         } else if (o.equals(b24/*=*/)) {
-            mathOps();
+            if (fv != null && op != null) {
+                mathOps();
+            } else {
+                //tf.setText("0");
+            }
         }
     }
 
     void mathOps() {
 
         sv = tf.getText();
-        fdv = Double.parseDouble(fv);
-        sdv = Double.parseDouble(sv);
+        try {
+            fdv = Double.parseDouble(fv);
+            sdv = Double.parseDouble(sv);
+        } catch (NumberFormatException e) {
+            System.out.println(e + "(MathOps()-get fdv/sdv");
+        } finally {
+        }
 
         switch (op) {
             case "+":
-                total = fdv + sdv;
+                total = (fdv) + (sdv);
                 break;
             case "-":
-                total = fdv - sdv;
+                total = (fdv) - (sdv);
                 break;
             case "*":
-                total = fdv * sdv;
+                total = (fdv) * (sdv);
                 break;
             case "/":
-                total = fdv / sdv;
+                total = (fdv) / (sdv);
                 break;
             case "%":
-                total = sdv * (fdv / 100);
+                total = (sdv) * (fdv / 100);
                 break;
             case "M":
-                total = fdv * fdv;
+                total = (fdv) * (fdv);
                 break;
             case "V":
                 total = Math.sqrt(fdv);
                 break;
             case "X":
-                total = 1 / fdv;
+                total = 1 / (fdv);
                 break;
         }
 
@@ -296,7 +343,12 @@ class Cal implements ActionListener {
             tf.setText(totalString);
         }
 
-        sf.setText(fv + op + sv + "=");
+        if (sv.startsWith("-")) {
+            sf.setText(fv + op + "(" + sv + ")=");
+        } else {
+            sf.setText(fv + op + sv + "=");
+        }
+        op = null;
     }
 
 }
