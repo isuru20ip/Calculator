@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 class Close extends WindowAdapter {
-    
+
     @Override
     public void windowClosing(WindowEvent we) {
         System.exit(0);
@@ -12,14 +12,14 @@ class Close extends WindowAdapter {
 }
 
 class Cal implements ActionListener {
-    
+
     TextField tf, sf;
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20, b21, b22, b23, b24;
     String fv, sv, op; // fv - first Value / sv - sort value / op - oparation value 
     Double fdv, sdv, total;
-    
+
     public Cal() {
-        
+
         Frame f = new Frame();
         f.addWindowListener(new Close());
         f.setBackground(Color.BLACK);
@@ -35,7 +35,7 @@ class Cal implements ActionListener {
 
         // Create a Menu Bar
         MenuBar mb = new MenuBar();
-        
+
         Menu m1 = new Menu("View"); // A Create a Menu
         MenuItem mi = new MenuItem("Standard"); // Create a Items
         m1.add(mi); // Add item into menu
@@ -44,7 +44,7 @@ class Cal implements ActionListener {
         MenuItem mi4 = new MenuItem("Save");
         MenuItem mi2 = new MenuItem("Copy"); // Create a Items
         MenuItem mi3 = new MenuItem("Cut");
-        
+
         m2.add(mi2); // Add item into menu
         m2.add(mi3); // Add item into menu
         m2.add(mi4); // Add item into menu
@@ -65,7 +65,7 @@ class Cal implements ActionListener {
         // Set Grid System to Panel
         p2.setLayout(gl);
         p2.setBackground(Color.BLACK);
-        
+
         p1.setLayout(g2);
         p1.setBackground(Color.BLACK);
 
@@ -127,16 +127,16 @@ class Cal implements ActionListener {
             btn[i].setForeground(Color.WHITE);
             btn[i].setCursor(Cursor.getPredefinedCursor(12));
             btn[i].setFont(f1);
-            
+
             p2.add(btn[i]); // Add Button into panel
 
             // Create Button Action
             btn[i].addActionListener(this);
         }
-        
+
         f.setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent d) {
         // remove default 0
@@ -168,7 +168,7 @@ class Cal implements ActionListener {
             tf.setText(tf.getText() + b10.getLabel());
         } else if (o.equals(b11/*9*/)) {
             tf.setText(tf.getText() + b11.getLabel());
-            
+
         } else if (o.equals(b20/* + */)) {
             fv = tf.getText();
             op = b20.getLabel();
@@ -179,43 +179,43 @@ class Cal implements ActionListener {
             op = b16.getLabel();
             tf.setText("");
             sf.setText(fv + op);
-            
+
         } else if (o.equals(b8/* / */)) {
             fv = tf.getText();
             op = "/";
             tf.setText("");
             sf.setText(fv + b8.getLabel());
-            
+
         } else if (o.equals(b12/* * */)) {
             fv = tf.getText();
             op = b12.getLabel();
             tf.setText("");
             sf.setText(fv + op);
-            
+
         } else if (o.equals(b1 /* % */)) {
             fv = tf.getText();
             op = b1.getLabel();
             tf.setText("");
             sf.setText(fv + op);
-            
+
         } else if (o.equals(b5 /* x² */)) {
             fv = tf.getText();
             op = "M";
             mathOps();
             sf.setText(fv + "^" + "2" + "=");
-            
+
         } else if (o.equals(b6 /* √x */)) {
             fv = tf.getText();
             op = "V";
             mathOps();
             sf.setText("√" + fv + "=");
-            
+
         } else if (o.equals(b7 /* 1÷x */)) {
             fv = tf.getText();
             op = "X";
             mathOps();
             sf.setText("1" + "/(" + fv + ")=");
-            
+
         } else if (o.equals(b21 /* +/- */)) {
             if (!"".equals(tf.getText())) {
                 fv = tf.getText();
@@ -232,17 +232,17 @@ class Cal implements ActionListener {
             sdv = null;
             tf.setText("0");
             sf.setText("");
-            
+
         } else if (o.equals(b2)) {
             tf.setText("0");
         } else if (o.equals(b23/* . */)) {
-            
+
             if ("".equals(tf.getText())) {
                 tf.setText("0.");
             } else {
                 tf.setText(tf.getText() + ".");
             }
-            
+
         } else if (o.equals(b4/* BackSpace */)) {
             int size = tf.getText().length();
             if (size <= 1) {
@@ -254,13 +254,13 @@ class Cal implements ActionListener {
             mathOps();
         }
     }
-    
+
     void mathOps() {
-        
+
         sv = tf.getText();
         fdv = Double.parseDouble(fv);
         sdv = Double.parseDouble(sv);
-        
+
         switch (op) {
             case "+":
                 total = fdv + sdv;
@@ -287,15 +287,22 @@ class Cal implements ActionListener {
                 total = 1 / fdv;
                 break;
         }
-        
-        tf.setText(total.toString());
-        sf.setText(fdv.toString() + op + sdv.toString() + "=");
+
+        String totalString = Double.toString(total);
+
+        if (totalString.endsWith(".0")) {
+            tf.setText(totalString.substring(0, totalString.indexOf('.')));
+        } else {
+            tf.setText(totalString);
+        }
+
+        sf.setText(fv + op + sv + "=");
     }
-    
+
 }
 
 public class Calculator {
-    
+
     public static void main(String[] args) {
         new Cal();
     }
