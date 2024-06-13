@@ -292,7 +292,7 @@ class Cal implements ActionListener {
             if (fv != null && op != null) {
                 mathOps();
             } else {
-                //tf.setText("0");
+                tf.setText("0");
             }
         }
     }
@@ -305,50 +305,56 @@ class Cal implements ActionListener {
             sdv = Double.parseDouble(sv);
         } catch (NumberFormatException e) {
             System.out.println(e + "(MathOps()-get fdv/sdv");
-        } finally {
+        }
+        try {
+
+            switch (op) {
+                case "+":
+                    total = (fdv) + (sdv);
+                    break;
+                case "-":
+                    total = (fdv) - (sdv);
+                    break;
+                case "*":
+                    total = (fdv) * (sdv);
+                    break;
+                case "/":
+                    total = (fdv) / (sdv);
+                    break;
+                case "%":
+                    total = (sdv) * (fdv / 100);
+                    break;
+                case "M":
+                    total = (fdv) * (fdv);
+                    break;
+                case "V":
+                    total = Math.sqrt(fdv);
+                    break;
+                case "X":
+                    total = 1 / (fdv);
+                    break;
+            }
+
+            String totalString = Double.toString(total);
+
+            if (totalString.endsWith(".0")) {
+                tf.setText(totalString.substring(0, totalString.indexOf('.')));
+            } else {
+                tf.setText(totalString);
+            }
+
+            if (sv.startsWith("-")) {
+                sf.setText(fv + op + "(" + sv + ")=");
+            } else {
+                sf.setText(fv + op + sv + "=");
+            }
+            op = null;
+
+        } catch (Exception e) {
+            System.out.println(e + "Math Switch");
+            tf.setText("Error");
         }
 
-        switch (op) {
-            case "+":
-                total = (fdv) + (sdv);
-                break;
-            case "-":
-                total = (fdv) - (sdv);
-                break;
-            case "*":
-                total = (fdv) * (sdv);
-                break;
-            case "/":
-                total = (fdv) / (sdv);
-                break;
-            case "%":
-                total = (sdv) * (fdv / 100);
-                break;
-            case "M":
-                total = (fdv) * (fdv);
-                break;
-            case "V":
-                total = Math.sqrt(fdv);
-                break;
-            case "X":
-                total = 1 / (fdv);
-                break;
-        }
-
-        String totalString = Double.toString(total);
-
-        if (totalString.endsWith(".0")) {
-            tf.setText(totalString.substring(0, totalString.indexOf('.')));
-        } else {
-            tf.setText(totalString);
-        }
-
-        if (sv.startsWith("-")) {
-            sf.setText(fv + op + "(" + sv + ")=");
-        } else {
-            sf.setText(fv + op + sv + "=");
-        }
-        op = null;
     }
 
 }
