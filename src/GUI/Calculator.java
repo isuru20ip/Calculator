@@ -322,7 +322,7 @@ class Cal implements ActionListener {
                     total = (fdv) / (sdv);
                     break;
                 case "%":
-                    total = (sdv) * (fdv / 100);
+                    total = sdv * fdv / 100;
                     break;
                 case "M":
                     total = (fdv) * (fdv);
