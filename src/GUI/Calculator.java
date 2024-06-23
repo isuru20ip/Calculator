@@ -275,10 +275,12 @@ class Cal implements ActionListener {
             tf.setText("0");
         } else if (o.equals(b23/* . */)) {
 
-            if ("".equals(tf.getText())) {
-                tf.setText("0.");
-            } else {
-                tf.setText(tf.getText() + ".");
+            if (!tf.getText().contains(".")) {
+                if ("".equals(tf.getText())) {
+                    tf.setText("0.");
+                } else {
+                    tf.setText(tf.getText() + ".");
+                }
             }
 
         } else if (o.equals(b4/* BackSpace */)) {
@@ -356,7 +358,7 @@ class Cal implements ActionListener {
         }
 
     }
-
+    
 }
 
 public class Calculator {
