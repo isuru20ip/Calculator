@@ -1,6 +1,8 @@
 package GUI;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 
 class Close extends WindowAdapter {
@@ -17,6 +19,7 @@ class Cal implements ActionListener {
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20, b21, b22, b23, b24;
     String fv, sv, op; // fv - first Value / sv - sort value / op - oparation value 
     Double fdv, sdv, total;
+    MenuItem mi2;
 
     public Cal() {
 
@@ -42,7 +45,7 @@ class Cal implements ActionListener {
 
         Menu m2 = new Menu("Edit"); // A Create a Menu
         MenuItem mi4 = new MenuItem("Save");
-        MenuItem mi2 = new MenuItem("Copy"); // Create a Items
+        mi2 = new MenuItem("Copy"); // Create a Items
         MenuItem mi3 = new MenuItem("Cut");
 
         m2.add(mi2); // Add item into menu
@@ -297,6 +300,13 @@ class Cal implements ActionListener {
                 tf.setText("0");
             }
         }
+
+        if (o.equals(mi2)) {
+            String copyText = tf.getText();
+            StringSelection StSel = new StringSelection(copyText);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(StSel, StSel);
+        }
     }
 
     void mathOps() {
@@ -358,7 +368,7 @@ class Cal implements ActionListener {
         }
 
     }
-    
+
 }
 
 public class Calculator {
